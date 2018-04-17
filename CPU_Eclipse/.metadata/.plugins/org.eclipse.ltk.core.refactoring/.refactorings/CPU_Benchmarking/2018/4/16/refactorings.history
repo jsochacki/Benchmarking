@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;CPU_Benchmarking/src/Basic_Encoder&apos; to &apos;Basic_Encoder.c&apos;" description="Rename resource &apos;Basic_Encoder&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Basic_Encoder" name="Basic_Encoder.c" stamp="1523912088098" updateReferences="true"/>
+</session>

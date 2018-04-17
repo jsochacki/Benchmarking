@@ -1,0 +1,5 @@
+09:19:31 **** Incremental Build of configuration Debug for project CPU_Benchmarking ****
+Info: Internal Builder is used for build
+g++ -o CPU_Benchmarking.exe "src\\main.o" -lrt 
+C:/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/7.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot find -lrt
+collect2.exe: error: ld returned 1 exit status
