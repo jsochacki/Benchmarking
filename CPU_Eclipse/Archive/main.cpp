@@ -1,6 +1,6 @@
+
 #include "typedefs.h"
 #include "benchmarking_functions.h"
-#include "encoder_functions.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
       return 0;
    }
 
-   int n, nn;
+   int n;
 
    int iterations = atoi(argv[1]);
    struct Timekeeper timekeeper;
@@ -23,14 +23,6 @@ int main(int argc, char *argv[])
    frame_size = 64800;
    data_size = 16200;
 
-   Codec_Specification codec_info;
-   BIT_NODES *bit_n;
-   CHECK_NODES *check_n;
-   codec_info.n = frame_size;
-   codec_info.code_index = 0;
-
-   code_spec(&codec_info, bit_n, check_n);
-
    binary_data = (DIGITAL*) calloc(frame_size, sizeof(DIGITAL));
 
    for(n = 0; n < data_size; n++)
@@ -42,10 +34,10 @@ int main(int argc, char *argv[])
    for(n = 0; n < iterations; n++)
    {
       //Function To Benchmark
-/*      for(nn = 0; nn < data_size; nn++)
+      for(n = 0; n < data_size; n++)
       {
-         printf("value is %d\n", binary_data[nn]);
-      }*/
+         printf("value is %d\n", binary_data[n]);
+      }
    }
    tock_and_report(&timekeeper, iterations);
    return 0;

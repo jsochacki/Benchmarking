@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <cstdlib>
-#include <string.h>
 #include "data_functions.h"
 
 typedef bool DIGITAL;
