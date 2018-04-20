@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
    codec_info.n = frame_size;
    codec_info.code_index = 0;
 
+   if (allocate_LDPC_encoder_memory(&bit_n, &check_n)) return (true);
    code_spec(&codec_info, bit_n, check_n);
 
    binary_data = (DIGITAL*) calloc(frame_size, sizeof(DIGITAL));
@@ -42,10 +43,7 @@ int main(int argc, char *argv[])
    for(n = 0; n < iterations; n++)
    {
       //Function To Benchmark
-/*      for(nn = 0; nn < data_size; nn++)
-      {
-         printf("value is %d\n", binary_data[nn]);
-      }*/
+      ldpc_encoder(codec_info, check_n, binary_data);
    }
    tock_and_report(&timekeeper, iterations);
    return 0;

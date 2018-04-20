@@ -2,7 +2,9 @@
 #ifndef ENCODER_FUNCTIONS_H_
 #define ENCODER_FUNCTIONS_H_
 
-#define MAX_BIT_DEGREE 14
+#define MAX_CHECK_NODES 48600 // rate 1/4 64K code
+
+#define MAX_BIT_DEGREE 14       //sufficient for DVBS2
 #define CHECK_DEGREE 30
 
 #define MAX_BLOCK_SIZE 65536    // !!! caution! to allow the use of unsigned short
@@ -32,13 +34,13 @@ struct Codec_Specification
    double         coderate;   // Code rate
 };
 
-struct BITS_ON_CHECK
+struct CHECKS_ON_BIT
 {
     unsigned short index;   // The index of the check nodes connected to bit node
     unsigned char bit_loc;        // The bit node is the "bit_loc"th connection to check node
 };
 
-struct CHECK_TO_BIT
+struct BIT_TO_CHECK
 {
     unsigned short index;  // The index of the bit nodes connected to the check node
     char w;                    // The soft information from check node to bit node
@@ -47,17 +49,23 @@ struct CHECK_TO_BIT
 struct BIT_NODES
 {
     unsigned char degree;
-    BITS_ON_CHECK boc[MAX_BIT_DEGREE];
+    CHECKS_ON_BIT cob[MAX_BIT_DEGREE];
 };
 
 struct CHECK_NODES
 {
     unsigned char degree;
-    CHECK_TO_BIT ctb[CHECK_DEGREE];
+    BIT_TO_CHECK btc[CHECK_DEGREE];
 };
 
 bool code_spec(Codec_Specification *, BIT_NODES *, CHECK_NODES *);
 
 bool ldpc_construct (Codec_Specification &, BIT_NODES *, CHECK_NODES *);
+
+void bit_checks(int , int , int , unsigned short *, int &, BIT_NODES *);
+
+bool allocate_LDPC_encoder_memory(BIT_NODES **, CHECK_NODES **);
+
+void ldpc_encoder(Codec_Specification &, CHECK_NODES *, DIGITAL *);
 
 #endif /* ENCODER_FUNCTIONS_H_ */
