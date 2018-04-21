@@ -376,7 +376,10 @@ bool ldpc_construct (Codec_Specification &codec_info, BIT_NODES *bit_n, CHECK_NO
       //making the bit nodes for the parity values xor section
       bit_checks(codec_info.k, codec_info.n-1, 2, add_lut, add_count, bit_n);
       //making the bit nodes for the last parity node
+
+      printf("final add lut is %d \n", add_lut[add_count]);
       bit_checks(codec_info.n-1, codec_info.n, 1, add_lut, add_count, bit_n);
+      printf("final add lut is %d \n", add_lut[add_count-1]);
 
       for (j = 0; j < codec_info.number_of_parity_bits; j++)
       {
