@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
    //Function to Benchmark Setup
    int frame_size, data_size, pa;
-   DIGITAL *binary_data;
+   DIGITAL *binary_data, *golden_binary_data;
 
    frame_size = 64800;
    data_size = 16200;
@@ -33,19 +33,58 @@ int main(int argc, char *argv[])
    code_spec(&codec_info, bit_n, check_n);
 
    binary_data = (DIGITAL*) calloc(frame_size, sizeof(DIGITAL));
+   golden_binary_data = (DIGITAL*) calloc(frame_size, sizeof(DIGITAL));
 
    for(n = 0; n < data_size; n++)
    {
       binary_data[n] = random_bit_generator();
    }
 
+   FILE *fpd;
+   fpd = fopen("pre_encoded_bits.txt", "r");
+   int bitnum;
+   for(bitnum = 0; bitnum < data_size; bitnum++)
+   {
+      if (!fscanf(fpd, "%d", &binary_data[bitnum]))
+      {
+         printf("Failed reading in bit file \n");
+      }
+      //printf("%d\n",binary_data[bitnum]);
+   }
+
+   fclose(fpd);
+
    tick(&timekeeper);
    for(n = 0; n < iterations; n++)
    {
+//      for(n = 0; n < data_size; n++)
+//      {
+//         binary_data[n] = random_bit_generator();
+//      }
       //Function To Benchmark
       ldpc_encoder(codec_info, check_n, binary_data);
    }
    tock_and_report(&timekeeper, iterations);
+
+   FILE *fpd2;
+   fpd2 = fopen("post_encoded_bits.txt", "r");
+   for(bitnum = 0; bitnum < frame_size; bitnum++)
+   {
+      if (!fscanf(fpd2, "%d", &golden_binary_data[bitnum]))
+      {
+         printf("Failed reading in bit file \n");
+      }
+   }
+   fclose(fpd2);
+
+   unsigned int bitcount = 0;
+
+   for(bitnum = 0; bitnum < frame_size; bitnum++)
+   {
+      if(golden_binary_data[bitnum] == binary_data[bitnum]) bitcount++;
+   }
+
+   if(bitcount == frame_size) printf("encoder is good\n"); else printf("encoder is bad\n");
    return 0;
 }
 

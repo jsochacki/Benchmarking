@@ -9,6 +9,4 @@
 
 typedef bool DIGITAL;
 
-
-
 #endif /* TYPEDEFS_H_ */

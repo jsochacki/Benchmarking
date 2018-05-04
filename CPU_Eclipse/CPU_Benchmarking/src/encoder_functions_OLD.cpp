@@ -1,5 +1,5 @@
 #include "typedefs.h"
-#include "encoder_functions.h"
+#include "encoder_functions_OLD.h"
 
 bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *check_n)//, BIT_NODES *bit_n, CHECK_NODES *check_n,  char **pp, int *address_table){   //Operates with global variables: codec_info, bit_n, check_n, pp
 {
@@ -437,11 +437,8 @@ bool ldpc_construct (Codec_Specification &codec_info, BIT_NODES *bit_n, CHECK_NO
             check_n[parity_node_index].degree = check_n[parity_node_index].degree + 1;
             */
 
-      //Work backwards through all bits so that the parity connection to its self
-      //is the first one in the stack so you can skip it when encoding
-      //you could just not do this and skip this step but rather just make the
-      //first connection the connection to the previous parity node and then
-      //encode from i=0 and save the space
+      //Work backwards through all bits so that the parity connection to the
+      //next node is the first one in the stack so you can skip it when encoding
       for (j = (codec_info.n - 1); j >= 0; j--)
       {
          for (i = 0; i < bit_n[j].degree; i++)
@@ -531,7 +528,7 @@ void ldpc_encoder(Codec_Specification &codec_info, CHECK_NODES *check_n, DIGITAL
       pa = 0;
       //iterate over the number of bits connected to a parity node
       //starting at parity node location 0
-      //since you attach the bits to the parity nodes in the reverse order
+      //since you attach the bits tot he parity nodes in the reverse order
       //starting from the end parity bit working your way to the first
       //message bit you can throw away/skip i=0 as that will always just
       //be equal to the bit it's self at that location
