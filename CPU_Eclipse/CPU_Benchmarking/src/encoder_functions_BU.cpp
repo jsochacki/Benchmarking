@@ -284,7 +284,7 @@ bool ldpc_construct (Codec_Specification &codec_info, BIT_NODES *bit_n, CHECK_NO
 {
    int i, j, k, parity_node_index;
 
-   int bit_count;
+   int lut_count;
 
    unsigned short add_seed[1000], add_lut[MAX_BLOCK_SIZE*5];
 
@@ -307,76 +307,204 @@ bool ldpc_construct (Codec_Specification &codec_info, BIT_NODES *bit_n, CHECK_NO
    int add_lut_size = elite_seed + deg2 * (codec_info.k - codec_info.elite_end) / codec_info.repeat; // 270
 
 
-   //Read in the add_seed table
-   fp = fopen(codec_info.LDPC_dat,"r");
-   if (!fp) { printf("#E fopen failed for file:%s\n", codec_info.LDPC_dat); }
+      //Read in the add_seed table
+      fp = fopen(codec_info.LDPC_dat,"r");
+      if (!fp) { printf("#E fopen failed for file:%s\n", codec_info.LDPC_dat); }
 
-   for (i = 0; i < add_lut_size; i++)
-   {
-          if (!fscanf(fp, "%hd", &add_seed[i]))
-          {
-             printf("#E Add LUT read failed i:%d add_lut_size:%d file:%s\n",
-                    i, add_lut_size, codec_info.LDPC_dat);
-          }
-   }
-   fclose(fp);
-
-   for (j = 0; j < codec_info.number_of_parity_bits; j++)
-   {
-      check_n[j].degree = 0;
-   }
-
-   //Do the top tier of parity seeds
-   bit_count = 0;
-   for (i = (deg - 1); i < elite_seed; i += deg)
-   {
-      for (j = 0; j < codec_info.repeat; j++)
+      for (i = 0; i < add_lut_size; i++)
       {
-         for (k = 0; k < deg; k++)
+             if (!fscanf(fp, "%hd", &add_seed[i]))
+             {
+                printf("#E Add LUT read failed i:%d add_lut_size:%d file:%s\n",
+                       i, add_lut_size, codec_info.LDPC_dat);
+             }
+      }
+      fclose(fp);
+
+      //Expand to the add_lut
+      lut_count = 0;
+      for (i = (deg - 1); i < elite_seed; i += deg)
+      {
+         for (j = 0; j < codec_info.repeat; j++)
          {
-            parity_node_index =
-                  (add_seed[i+1-deg+k]+j*q)%codec_info.number_of_parity_bits;
-            check_n[parity_node_index].
-               btc[check_n[parity_node_index].degree].index = bit_count;
-            check_n[parity_node_index].degree =
-                     check_n[parity_node_index].degree + 1;
+            for (k = 0; k < deg; k++)
+            {
+               add_lut[lut_count++] = (add_seed[i+1-deg+k]+j*q)%codec_info.number_of_parity_bits;
+            }
          }
-         bit_count++;
+      }
+
+      //Deal with the lower portion of the seed table
+      deg = deg2;
+
+      for (i = ((elite_seed - 1) + deg); i < add_lut_size; i += deg)
+      {
+         for (j = 0; j < codec_info.repeat; j++)
+         {
+            for (k = 0; k < deg; k++)
+            {
+               add_lut[lut_count++] = (add_seed[i+1-deg+k]+j*q)%codec_info.number_of_parity_bits;
+            }
+         }
+      }
+
+/*      int counter = 0;
+      for(i = 0; i < lut_count; i++)
+      {
+         if(add_lut[i] == add_lut[0]) counter++;
+      }
+      printf("value and count %d and %d\n", add_lut[0], counter);*/
+
+//      for (i = 0; i < codec_info.number_of_parity_bits; i++)
+//      {
+//         add_lut[lut_count++] = i;
+//         add_lut[lut_count++] = i + 1;
+//      }
+
+      //Connect each parity node to the previous parity node
+      // or another way of saying this is connect each parity node to the next
+      //The first parity node has no connection to an earlier one
+      // the last parity node has no connection to a later one
+      for (i = 0; i < (codec_info.number_of_parity_bits - 1); i++)
+      {
+         add_lut[lut_count++] = i;
+         add_lut[lut_count++] = i + 1;
+      }
+      add_lut[lut_count++] = (codec_info.number_of_parity_bits - 1);
+
+      if (lut_count >= (MAX_BLOCK_SIZE*5))
+      {
+        printf("#E exceed  add_lut size:%d lut_count:%d\n",
+                 MAX_BLOCK_SIZE * 5, lut_count);
+      }
+
+      //Arrange the bit_node connections
+      int add_count = 0;
+      //making the bit nodes for the expanded top seed portion
+      bit_checks(0, codec_info.elite_end, codec_info.elite_degree, add_lut, add_count, bit_n);
+      //making the bit nodes for the expanded bottom seed portion
+      bit_checks(codec_info.elite_end, codec_info.k, deg2, add_lut, add_count, bit_n);
+      //making the bit nodes for the parity values xor section
+      bit_checks(codec_info.k, codec_info.n-1, 2, add_lut, add_count, bit_n);
+      //making the bit nodes for the last parity node
+      bit_checks(codec_info.n-1, codec_info.n, 1, add_lut, add_count, bit_n);
+
+      for (j = 0; j < codec_info.number_of_parity_bits; j++)
+      {
+         check_n[j].degree = 0;
+      }
+
+      /*      lut_count = 0;
+            for (i = (deg - 1); i < elite_seed; i += deg)
+            {
+               for (j = 0; j < codec_info.repeat; j++)
+               {
+                  for (k = 0; k < deg; k++)
+                  {
+                     parity_node_index = (add_seed[i+1-deg+k]+j*q)%codec_info.number_of_parity_bits;
+                     check_n[parity_node_index].btc[check_n[parity_node_index].degree].index = i + j;
+                     check_n[parity_node_index].degree = check_n[parity_node_index].degree + 1;
+                  }
+               }
+            }
+
+            deg = deg2;
+
+            for (i = ((elite_seed - 1) + deg); i < add_lut_size; i += deg)
+            {
+               for (j = 0; j < codec_info.repeat; j++)
+               {
+                  for (k = 0; k < deg; k++)
+                  {
+                     parity_node_index = (add_seed[i+1-deg+k]+j*q)%codec_info.number_of_parity_bits;
+                     check_n[parity_node_index].btc[check_n[parity_node_index].degree].index = i + j;
+                     check_n[parity_node_index].degree = check_n[parity_node_index].degree + 1;
+                  }
+               }
+            }
+
+            for (i = 0; i < (codec_info.number_of_parity_bits - 1); i++)
+            {
+               parity_node_index = i;
+               check_n[parity_node_index].btc[check_n[parity_node_index].degree].index = codec_info.k + i;
+               check_n[parity_node_index].degree = check_n[parity_node_index].degree + 1;
+               parity_node_index = i + 1;
+               check_n[parity_node_index].btc[check_n[parity_node_index].degree].index = codec_info.k + i;
+               check_n[parity_node_index].degree = check_n[parity_node_index].degree + 1;
+            }
+            parity_node_index = (codec_info.number_of_parity_bits - 1);
+            check_n[parity_node_index].btc[check_n[parity_node_index].degree].index = codec_info.k + i;
+            check_n[parity_node_index].degree = check_n[parity_node_index].degree + 1;
+            */
+
+      //Work backwards through all bits so that the parity connection to its self
+      //is the first one in the stack so you can skip it when encoding
+      //you could just not do this and skip this step but rather just make the
+      //first connection the connection to the previous parity node and then
+      //encode from i=0 and save the space
+      for (j = (codec_info.n - 1); j >= 0; j--)
+      {
+         for (i = 0; i < bit_n[j].degree; i++)
+         {
+            //Grab the parity locations for bit j one at a time and put in
+            //parity_node_index, temp index values will only ever be parity bit locations
+            //and never data bit locations
+            parity_node_index = bit_n[j].cob[i].index;
+            if (parity_node_index >= MAX_CHECK_NODES)
+            {
+               printf("#E illegal check_n index"
+                        "bit_n[%d].btc[%d].index:%d > MAX_CHECK_NODES:%d\n",
+                        j, i, parity_node_index, MAX_CHECK_NODES);
+            }
+            //Store the bit numbers that tie to a parity node in the index
+            //for the parity location that they tie to (but in separate bins
+            //of course so you can grab them all later).  You do this
+            //by incrementing the degree of the bits to check at that
+            //parity_node_index location each time you add a bit
+//            if(check_n[parity_node_index].degree == 0 || check_n[parity_node_index].degree == 1)
+//            {
+//               printf("\ncheck_n[%d].degree = %d\n", parity_node_index, check_n[parity_node_index].degree);
+//               printf("bit_n[%d].cob[%d].index = %d\n", j, i, parity_node_index);
+//               printf("check_n[%d].btc[%d].index = %d\n", parity_node_index, check_n[parity_node_index].degree, j);
+//            }
+            check_n[parity_node_index].btc[check_n[parity_node_index].degree].index = j;
+            check_n[parity_node_index].degree = check_n[parity_node_index].degree + 1;
+         }
+      }
+}
+
+void bit_checks(int b_start, int b_end, int DV,
+                unsigned short *add_lut, int &add_count,
+                BIT_NODES *bit_n)
+{
+   int i, j;
+
+   if (DV > MAX_BIT_DEGREE)
+   {
+      printf("#E DV:%d > MAX_BIT_DEGREE:%d\n", DV, MAX_BIT_DEGREE);
+   }
+
+   for (j = b_start; j < b_end; j++)
+   {
+      //DV: degree of bits
+      bit_n[j].degree = DV;
+      for (i = 0; i < DV; i++)
+      {
+         if (add_count >= (MAX_BLOCK_SIZE * 5))
+         {
+            printf("#E illegal add_count:%d MAX_BLOCK_SIZE*5:%d\n",
+                     add_count, (MAX_BLOCK_SIZE * 5));
+         }
+         //j is the information bit in the message
+         //this is pulling out the check nodes that each information bit goes to
+//         if(j == 16200)
+//         {
+//            printf("bit_n[%d].cob[%d].index = %d\n", j, i, add_lut[add_count]);
+//         }
+         bit_n[j].cob[i].index = (unsigned short) add_lut[add_count++];
       }
    }
 
-   //Do the second tier of parity seeds
-   deg = deg2;
-
-   //for (i = (elite_seed + (deg - 1)); i < add_lut_size; i += deg)
-   for (i = ((elite_seed - 1) + deg); i < add_lut_size; i += deg)
-   {
-      for (j = 0; j < codec_info.repeat; j++)
-      {
-         for (k = 0; k < deg; k++)
-         {
-            parity_node_index =
-                  (add_seed[i+1-deg+k]+j*q)%codec_info.number_of_parity_bits;
-            check_n[parity_node_index].
-               btc[check_n[parity_node_index].degree].index = bit_count;
-            check_n[parity_node_index].degree =
-                     check_n[parity_node_index].degree + 1;
-         }
-         bit_count++;
-      }
-   }
-
-   //connect the next parity node to the current bit node (which is the same
-   // as the current parity node so you are connecting the next parity
-   // node to the current parity node)
-   //last node has no forward connection so stop 1 early
-   for (i = 0; i < (codec_info.number_of_parity_bits - 1); i++)
-   {
-      parity_node_index = i + 1;
-      check_n[parity_node_index].btc[check_n[parity_node_index].degree].index = bit_count;
-      check_n[parity_node_index].degree = check_n[parity_node_index].degree + 1;
-      bit_count++;
-   }
 }
 
 bool allocate_LDPC_encoder_memory(BIT_NODES **bit_n, CHECK_NODES **check_n)
@@ -395,19 +523,25 @@ bool allocate_LDPC_encoder_memory(BIT_NODES **bit_n, CHECK_NODES **check_n)
 void ldpc_encoder(Codec_Specification &codec_info, CHECK_NODES *check_n, DIGITAL *encoded_bits)
 {
 
+   //new j and i switched. i from 1 because 0 is the parity itself
    int i, j, pa;
 
    for(j = 0; j < codec_info.number_of_parity_bits; j++)
    {
       pa = 0;
       //iterate over the number of bits connected to a parity node
-      for(i = 0; i < check_n[j].degree; i++)
+      //starting at parity node location 0
+      //since you attach the bits to the parity nodes in the reverse order
+      //starting from the end parity bit working your way to the first
+      //message bit you can throw away/skip i=0 as that will always just
+      //be equal to the bit it's self at that location
+      //so long as you are encoding in the successive manner as below
+      for(i = 1; i < check_n[j].degree; i++)
       {
          pa += encoded_bits[check_n[j].btc[i].index];
       }
       //Once all the parity bits have been accumulated set the corresponding
-      //parity bit appropriately by doing a bitwise and by 0001 to see what the
-      //parity bit is (if it were xor accumulated)
+      //parity bit appropriately
       if(pa & 1)
       {
          encoded_bits[codec_info.k + j] = 1;
