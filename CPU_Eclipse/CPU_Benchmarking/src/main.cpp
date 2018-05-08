@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
    struct Timekeeper timekeeper;
 
    //Function to Benchmark Setup
-   int frame_size, data_size, pa;
+   int frame_size, data_size;
    DIGITAL *binary_data, *golden_binary_data;
 
    Codec_Specification codec_info;
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
    CHECK_NODES *check_n;
    codec_info.code_index = S2_NF_1_4;
 
-   if (allocate_LDPC_encoder_memory(&bit_n, &check_n)) return (true);
+   if (!allocate_LDPC_encoder_memory(&bit_n, &check_n)) return false;
    code_spec(&codec_info, bit_n, check_n);
 
    frame_size = codec_info.n;
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 
    if(bitcount == frame_size) printf("encoder is good\n"); else printf("encoder is bad\n");
 
-   return 0;
+   return 1;
 }
 
 

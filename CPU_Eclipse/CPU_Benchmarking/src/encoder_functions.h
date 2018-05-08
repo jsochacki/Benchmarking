@@ -18,7 +18,7 @@ struct BCH_SPEC
    unsigned char  m;
    unsigned short n;
    unsigned short k;
-   bool           *gen;       // pointer to the appro. generator metrics
+   bool           *gen;       // pointer to the generator metrics
 };
 
 struct Codec_Specification
@@ -27,11 +27,11 @@ struct Codec_Specification
    unsigned short n;    // Total code block size
    unsigned short k;    // Information bits
    unsigned short number_of_parity_bits;    // number_of_parity_bits
-   unsigned char  elite_degree;  // Guide code construction from LDPC_*.dat
-   unsigned short elite_end;  // Guide code construction from LDPC_*.dat
-   int            repeat;  // mostly used for LDA
+   unsigned char  elite_degree;  // Guide code construction from *.dat
+   unsigned short elite_end;  // Guide code construction from *.dat
+   int            repeat;  // Guide code construction from *.dat and for LDA
    int            max_chk_degree; // Only used for LDA
-   char           LDPC_dat[25]; // File name for the address seed table
+   char           LDPC_dat[20]; // File name for the address seed table
    int            total_edges;
    BCH_SPEC       BCH;     // BCH code spec
    double         coderate;   // Code rate

@@ -375,6 +375,11 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->repeat = 360;
          codec_info->elite_degree = 8;
          codec_info->elite_end = 1800;
+         //Need to recalculate this with new .dat file
+         /////////////
+         //////////
+         ///////
+         ////////////
          codec_info->max_chk_degree = 7;
          strcpy(codec_info->LDPC_dat,  "AB_SF_1_2.dat");
          codec_info->BCH.m = 14;
@@ -574,7 +579,7 @@ bool code_spec(Codec_Specification *codec_info,
 
       default:
          printf("#E The code option is not supported!\n");
-         return (true);
+         return false;
    }
 
    printf("#E The code option:%d is n:%d code_index:%d\n"
@@ -624,14 +629,14 @@ bool code_spec(Codec_Specification *codec_info,
             codec_info->number_of_parity_bits,
             codec_info->total_edges);
 
-   if(ldpc_construct(*codec_info, bit_n, check_n))
+   if(!ldpc_construct(*codec_info, bit_n, check_n))
    {
-      return (true);
+      return false;
    }
 /*   if (BCH_spec(codec_info)) return (true);
    codec_info->coderate=(double)codec_info->BCH.k/(double)codec_info->n;*/
 
-   return(false);
+   return true;
 }
 
 bool ldpc_construct (Codec_Specification &codec_info,
@@ -667,7 +672,11 @@ bool ldpc_construct (Codec_Specification &codec_info,
 
    //Read in the add_seed table
    fp = fopen(codec_info.LDPC_dat,"r");
-   if (!fp) { printf("#E fopen failed for file:%s\n", codec_info.LDPC_dat); }
+   if (!fp)
+   {
+      printf("#E fopen failed for file:%s\n", codec_info.LDPC_dat);
+      return false;
+   }
 
    for (i = 0; i < add_lut_size; i++)
    {
@@ -675,6 +684,7 @@ bool ldpc_construct (Codec_Specification &codec_info,
           {
              printf("#E Add LUT read failed i:%d add_lut_size:%d file:%s\n",
                     i, add_lut_size, codec_info.LDPC_dat);
+             return false;
           }
    }
    fclose(fp);
@@ -750,6 +760,7 @@ bool ldpc_construct (Codec_Specification &codec_info,
    //until you investigate and learn otherwise
 
    //You can just comment this out if you are not using it
+/*
    int max_connections = 0;
    for(j = 0; j < codec_info.number_of_parity_bits; j++)
    {
@@ -760,6 +771,9 @@ bool ldpc_construct (Codec_Specification &codec_info,
    }
    max_connections++;
    printf("max connections is %d\n", max_connections);
+*/
+
+   return true;
 }
 
 bool allocate_LDPC_encoder_memory(BIT_NODES **bit_n, CHECK_NODES **check_n)
@@ -772,9 +786,9 @@ bool allocate_LDPC_encoder_memory(BIT_NODES **bit_n, CHECK_NODES **check_n)
         )
       {
          printf("Insufficient memory available for encoder construction\n");
-         return(true);
+         return false;
       }
-      return(false);
+      return true;
 }
 
 void ldpc_encoder(Codec_Specification &codec_info,
