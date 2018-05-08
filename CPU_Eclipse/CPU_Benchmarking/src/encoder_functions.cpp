@@ -6,61 +6,6 @@ bool code_spec(Codec_Specification *codec_info,
                CHECK_NODES *check_n)
 {
 
-/*   switch(codec_info->code_index)
-   {
-      case AB_x6_1_3:
-         codec_info->k = 420;
-         codec_info->n = 1260;
-         codec_info->repeat = 42;
-         codec_info->elite_degree = 12;
-         codec_info->elite_end = 126;
-         codec_info->max_chk_degree = 11111;
-         strcpy(codec_info->LDPC_dat,  "AB_x6_13.dat");
-         codec_info->BCH.m = 12;
-         codec_info->BCH.t = 12;
-         break;
-      case AB_x4_1_3:
-         codec_info->n = 1890;
-         codec_info->repeat = 42;
-         break;
-      case AB_x3_1_3:
-         codec_info->n = 2520;
-         codec_info->repeat = 42;
-         break;
-      case AB_x2_1_3:
-         codec_info->n = 3780;
-         codec_info->repeat = 42;
-         break;
-      case AB_x1_1_5:
-         codec_info->n = 7560;
-         codec_info->repeat = 84;
-         break;
-      case AB_x1_4_15:
-         codec_info->n = 7560;
-         codec_info->repeat = 84;
-         break;
-      case AB_x1_1_3:
-         codec_info->n = 7560;
-         codec_info->repeat = 168;
-         break;
-      case AB_SF_1_4 ... AB_SF_3_4:
-         codec_info->n = 16200;
-         codec_info->repeat = 360;
-         break;
-      case AB_MF_2_5 ... AB_MF_4_5:
-         codec_info->n = 32400;
-         codec_info->repeat = 360;
-         break;
-      case AB_LF_7_10 ... AB_LF_9_10:
-         codec_info->n = 40500;
-         codec_info->repeat = 405;
-         break;
-      default:
-         printf("#E Code Index not supported\n");
-         return (true);
-   }
-   printf("#E Selected block size is :%d\n", codec_info->n);*/
-
    switch(codec_info->code_index)
    {
       //16200 S2
@@ -71,7 +16,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 1440;
          codec_info->max_chk_degree = 4;
-         strcpy(codec_info->LDPC_dat,  "DVB_14_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_1_4.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -82,7 +27,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 1800;
          codec_info->max_chk_degree = 5;
-         strcpy(codec_info->LDPC_dat,  "DVB_13_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_1_3.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -93,7 +38,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 2160;
          codec_info->max_chk_degree = 6;
-         strcpy(codec_info->LDPC_dat,  "DVB_25_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_2_5.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -104,7 +49,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 8;
          codec_info->elite_end = 1800;
          codec_info->max_chk_degree = 7;
-         strcpy(codec_info->LDPC_dat,  "DVB_12_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_1_2.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -115,7 +60,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 3240;
          codec_info->max_chk_degree = 11;
-         strcpy(codec_info->LDPC_dat,  "DVB_35_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_3_5.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -126,7 +71,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 13;
          codec_info->elite_end = 1080;
          codec_info->max_chk_degree = 10;
-         strcpy(codec_info->LDPC_dat,  "DVB_23_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_2_3.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -137,7 +82,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 360;
          codec_info->max_chk_degree = 13;
-         strcpy(codec_info->LDPC_dat,  "DVB_34_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_3_4.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -148,7 +93,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 3;
          codec_info->elite_end = 360;
          codec_info->max_chk_degree = 13;
-         strcpy(codec_info->LDPC_dat,  "DVB_45_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_4_5.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -159,7 +104,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 13;
          codec_info->elite_end = 360;
          codec_info->max_chk_degree = 19;
-         strcpy(codec_info->LDPC_dat,  "DVB_56_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_5_6.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -170,7 +115,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 4;
          codec_info->elite_end = 1800;
          codec_info->max_chk_degree = 27;
-         strcpy(codec_info->LDPC_dat,  "DVB_89_16.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_SF_8_9.dat");
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
@@ -183,7 +128,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 5400;
          codec_info->max_chk_degree = 4;
-         strcpy(codec_info->LDPC_dat,  "DVB_14_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_1_4.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
@@ -194,7 +139,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 7200;
          codec_info->max_chk_degree = 5;
-         strcpy(codec_info->LDPC_dat,  "DVB_13_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_1_3.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
@@ -205,7 +150,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 8640;
          codec_info->max_chk_degree = 6;
-         strcpy(codec_info->LDPC_dat,  "DVB_25_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_2_5.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
@@ -216,7 +161,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 8;
          codec_info->elite_end = 12960;
          codec_info->max_chk_degree = 7;
-         strcpy(codec_info->LDPC_dat,  "DVB_12_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_1_2.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
@@ -227,7 +172,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 12960;
          codec_info->max_chk_degree = 11;
-         strcpy(codec_info->LDPC_dat,  "DVB_35_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_3_5.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
@@ -238,7 +183,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 13;
          codec_info->elite_end = 4320;
          codec_info->max_chk_degree = 10;
-         strcpy(codec_info->LDPC_dat,  "DVB_23_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_2_3.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 10;
          break;
@@ -249,7 +194,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 12;
          codec_info->elite_end = 5400;
          codec_info->max_chk_degree = 14;
-         strcpy(codec_info->LDPC_dat,  "DVB_34_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_3_4.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
@@ -260,7 +205,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 11;
          codec_info->elite_end = 6480;
          codec_info->max_chk_degree = 18;
-         strcpy(codec_info->LDPC_dat,  "DVB_45_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_4_5.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
@@ -271,7 +216,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 13;
          codec_info->elite_end = 5400;
          codec_info->max_chk_degree = 22;
-         strcpy(codec_info->LDPC_dat,  "DVB_56_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_5_6.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 10;
          break;
@@ -282,7 +227,7 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 4;
          codec_info->elite_end = 7200;
          codec_info->max_chk_degree = 27;
-         strcpy(codec_info->LDPC_dat,  "DVB_89_64.dat");
+         strcpy(codec_info->LDPC_dat,  "S2_NF_8_9.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 8;
          break;
@@ -293,9 +238,338 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->elite_degree = 4;
          codec_info->elite_end = 6480;
          codec_info->max_chk_degree = 30;
-         strcpy(codec_info->LDPC_dat, "DVB_910_64.dat");
+         strcpy(codec_info->LDPC_dat, "S2_NF_9_10.dat");
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 8;
+         break;
+
+      //AB Spread Codes
+      case AB_x6_1_3:
+         codec_info->k = 420;
+         codec_info->n = 1260;
+         codec_info->repeat = 42;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 126;
+         codec_info->max_chk_degree = 5;
+         strcpy(codec_info->LDPC_dat,  "AB_x6_1_3.dat");
+         codec_info->BCH.m = 12;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_x4_1_3:
+         codec_info->k = 630;
+         codec_info->n = 1890;
+         codec_info->repeat = 42;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 210;
+         codec_info->max_chk_degree = 5;
+         strcpy(codec_info->LDPC_dat,  "AB_x4_1_3.dat");
+         codec_info->BCH.m = 12;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_x3_1_3:
+         codec_info->k = 840;
+         codec_info->n = 2520;
+         codec_info->repeat = 42;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 252;
+         codec_info->max_chk_degree = 5;
+         strcpy(codec_info->LDPC_dat,  "AB_x3_1_3.dat");
+         codec_info->BCH.m = 12;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_x2_1_3:
+         codec_info->k = 1260;
+         codec_info->n = 3780;
+         codec_info->repeat = 42;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 420;
+         codec_info->max_chk_degree = 5;
+         strcpy(codec_info->LDPC_dat,  "AB_x2_1_3.dat");
+         codec_info->BCH.m = 12;
+         codec_info->BCH.t = 12;
+         break;
+
+      //AB BPSK Codes
+      case AB_x1_1_5:
+         codec_info->k = 1512;
+         codec_info->n = 7560;
+         codec_info->repeat = 84;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 672;
+         codec_info->max_chk_degree = 4;
+         strcpy(codec_info->LDPC_dat,  "AB_x1_1_5.dat");
+         codec_info->BCH.m = 12;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_x1_4_15:
+         codec_info->k = 2016;
+         codec_info->n = 7560;
+         codec_info->repeat = 84;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 840;
+         codec_info->max_chk_degree = 5;
+         strcpy(codec_info->LDPC_dat,  "AB_x1_4_15.dat");
+         codec_info->BCH.m = 12;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_x1_1_3:
+         codec_info->k = 2520;
+         codec_info->n = 7560;
+         codec_info->repeat = 168;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 840;
+         codec_info->max_chk_degree = 5;
+         strcpy(codec_info->LDPC_dat,  "AB_x1_1_3.dat");
+         codec_info->BCH.m = 12;
+         codec_info->BCH.t = 12;
+         break;
+
+      //AB Short Frame Codes
+      case AB_SF_1_4:
+         codec_info->k = 3960;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 1800;
+         codec_info->max_chk_degree = 5;
+         strcpy(codec_info->LDPC_dat,  "AB_SF_1_4.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_SF_4_15:
+         codec_info->k = 4320;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 1800;
+         codec_info->max_chk_degree = 5;
+         strcpy(codec_info->LDPC_dat,  "AB_SF_4_15.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_SF_1_3:
+         codec_info->k = 5400;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 1800;
+         codec_info->max_chk_degree = 5;
+         strcpy(codec_info->LDPC_dat,  "AB_SF_1_3.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_SF_2_5:
+         codec_info->k = 6480;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 2160;
+         codec_info->max_chk_degree = 6;
+         strcpy(codec_info->LDPC_dat,  "AB_SF_2_5.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_SF_1_2:
+         codec_info->k = 7200;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 8;
+         codec_info->elite_end = 1800;
+         codec_info->max_chk_degree = 7;
+         strcpy(codec_info->LDPC_dat,  "AB_SF_1_2.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_SF_8_15:
+         codec_info->k = 8640;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 13;
+         codec_info->elite_end = 2160;
+         codec_info->max_chk_degree = 9;
+         strcpy(codec_info->LDPC_dat,  "AB_SF_8_15.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_SF_3_5:
+         codec_info->k = 9720;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 3240;
+         codec_info->max_chk_degree = 11;
+         strcpy(codec_info->LDPC_dat,  "AB_SF_3_5.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_SF_2_3:
+         codec_info->k = 10800;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 13;
+         codec_info->elite_end = 1080;
+         codec_info->max_chk_degree = 10;
+         strcpy(codec_info->LDPC_dat,  "AB_SF_2_3.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_SF_3_4:
+         codec_info->k = 11880;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 360;
+         codec_info->max_chk_degree = 13;
+         strcpy(codec_info->LDPC_dat,  "AB_SF_3_4.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+
+      //AB Medium Frame Codes
+      case AB_MF_2_5:
+         codec_info->k = 12960;
+         codec_info->n = 32400;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 4320;
+         codec_info->max_chk_degree = 6;
+         strcpy(codec_info->LDPC_dat,  "AB_MF_2_5.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_MF_7_15:
+         codec_info->k = 15120;
+         codec_info->n = 32400;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 13;
+         codec_info->elite_end = 3600;
+         codec_info->max_chk_degree = 7;
+         strcpy(codec_info->LDPC_dat,  "AB_MF_7_15.dat");
+         codec_info->BCH.m = 14;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_MF_8_15:
+         codec_info->k = 17280;
+         codec_info->n = 32400;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 13;
+         codec_info->elite_end = 4320;
+         codec_info->max_chk_degree = 9;
+         strcpy(codec_info->LDPC_dat,  "AB_MF_8_15.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_MF_3_5:
+         codec_info->k = 19440;
+         codec_info->n = 32400;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 3600;
+         codec_info->max_chk_degree = 9;
+         strcpy(codec_info->LDPC_dat,  "AB_MF_3_5.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_MF_2_3:
+         codec_info->k = 21600;
+         codec_info->n = 32400;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 13;
+         codec_info->elite_end = 2160;
+         codec_info->max_chk_degree = 10;
+         strcpy(codec_info->LDPC_dat,  "AB_MF_2_3.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_MF_3_4:
+         codec_info->k = 23760;
+         codec_info->n = 32400;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 3600;
+         codec_info->max_chk_degree = 14;
+         strcpy(codec_info->LDPC_dat,  "AB_MF_3_4.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_MF_4_5:
+         codec_info->k = 25920;
+         codec_info->n = 32400;
+         codec_info->repeat = 360;
+         codec_info->elite_degree = 11;
+         codec_info->elite_end = 3240;
+         codec_info->max_chk_degree = 18;
+         strcpy(codec_info->LDPC_dat,  "AB_MF_4_5.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+
+      //AB Long Frame Codes
+      case AB_LF_7_10:
+         codec_info->k = 28350;
+         codec_info->n = 40500;
+         codec_info->repeat = 405;
+         codec_info->elite_degree = 13;
+         codec_info->elite_end = 2835;
+         codec_info->max_chk_degree = 12;
+         strcpy(codec_info->LDPC_dat,  "AB_LF_7_10.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_LF_3_4:
+         codec_info->k = 30375;
+         codec_info->n = 40500;
+         codec_info->repeat = 405;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 3240;
+         codec_info->max_chk_degree = 14;
+         strcpy(codec_info->LDPC_dat,  "AB_LF_3_4.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_LF_4_5:
+         codec_info->k = 32400;
+         codec_info->n = 40500;
+         codec_info->repeat = 405;
+         codec_info->elite_degree = 11;
+         codec_info->elite_end = 4050;
+         codec_info->max_chk_degree = 18;
+         strcpy(codec_info->LDPC_dat,  "AB_LF_4_5.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_LF_5_6:
+         codec_info->k = 34020;
+         codec_info->n = 40500;
+         codec_info->repeat = 405;
+         codec_info->elite_degree = 13;
+         codec_info->elite_end = 3240;
+         codec_info->max_chk_degree = 23;
+         strcpy(codec_info->LDPC_dat,  "AB_LF_5_6.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_LF_8_9:
+         codec_info->k = 35640;
+         codec_info->n = 40500;
+         codec_info->repeat = 405;
+         codec_info->elite_degree = 4;
+         codec_info->elite_end = 4860;
+         codec_info->max_chk_degree = 25;
+         strcpy(codec_info->LDPC_dat,  "AB_LF_8_9.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
+         break;
+      case AB_LF_9_10:
+         codec_info->k = 36450;
+         codec_info->n = 40500;
+         codec_info->repeat = 405;
+         codec_info->elite_degree = 4;
+         codec_info->elite_end = 4050;
+         codec_info->max_chk_degree = 30;
+         strcpy(codec_info->LDPC_dat,  "AB_LF_9_10.dat");
+         codec_info->BCH.m = 16;
+         codec_info->BCH.t = 12;
          break;
 
       default:
