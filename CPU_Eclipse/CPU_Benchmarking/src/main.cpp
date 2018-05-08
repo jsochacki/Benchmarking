@@ -15,22 +15,20 @@ int main(int argc, char *argv[])
    int iterations = atoi(argv[1]);
    struct Timekeeper timekeeper;
 
-
    //Function to Benchmark Setup
    int frame_size, data_size, pa;
    DIGITAL *binary_data, *golden_binary_data;
 
-   frame_size = 64800;
-   data_size = 16200;
-
    Codec_Specification codec_info;
    BIT_NODES *bit_n;
    CHECK_NODES *check_n;
-   codec_info.n = frame_size;
-   codec_info.code_index = 0;
+   codec_info.code_index = S2_NF_1_4;
 
    if (allocate_LDPC_encoder_memory(&bit_n, &check_n)) return (true);
    code_spec(&codec_info, bit_n, check_n);
+
+   frame_size = codec_info.n;
+   data_size = codec_info.k;
 
    binary_data = (DIGITAL*) calloc(frame_size, sizeof(DIGITAL));
    golden_binary_data = (DIGITAL*) calloc(frame_size, sizeof(DIGITAL));
@@ -85,6 +83,7 @@ int main(int argc, char *argv[])
    }
 
    if(bitcount == frame_size) printf("encoder is good\n"); else printf("encoder is bad\n");
+
    return 0;
 }
 

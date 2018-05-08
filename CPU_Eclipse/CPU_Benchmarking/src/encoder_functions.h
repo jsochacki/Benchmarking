@@ -2,6 +2,8 @@
 #ifndef ENCODER_FUNCTIONS_H_
 #define ENCODER_FUNCTIONS_H_
 
+#include "typedefs.h"
+
 #define MAX_CHECK_NODES 48600 // rate 1/4 64K code
 
 #define MAX_BIT_DEGREE 14       //sufficient for DVBS2
@@ -21,7 +23,7 @@ struct BCH_SPEC
 
 struct Codec_Specification
 {
-   unsigned short code_index; //Code index to select code rate
+   CODEINDEX code_index; //Code index to select code rate
    unsigned short n;    // Total code block size
    unsigned short k;    // Information bits
    unsigned short number_of_parity_bits;    // number_of_parity_bits

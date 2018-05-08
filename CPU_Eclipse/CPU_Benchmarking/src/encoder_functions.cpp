@@ -1,32 +1,73 @@
 #include "typedefs.h"
 #include "encoder_functions.h"
 
-bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *check_n)//, BIT_NODES *bit_n, CHECK_NODES *check_n,  char **pp, int *address_table){   //Operates with global variables: codec_info, bit_n, check_n, pp
+bool code_spec(Codec_Specification *codec_info,
+               BIT_NODES *bit_n,
+               CHECK_NODES *check_n)
 {
 
-   int code_id;
-
-   codec_info->repeat = 360; //default otherwise specify for individual modcod
-
-   switch(codec_info->n)
+/*   switch(codec_info->code_index)
    {
-      case 16200:
-         code_id = 100 + codec_info->code_index;
+      case AB_x6_1_3:
+         codec_info->k = 420;
+         codec_info->n = 1260;
+         codec_info->repeat = 42;
+         codec_info->elite_degree = 12;
+         codec_info->elite_end = 126;
+         codec_info->max_chk_degree = 11111;
+         strcpy(codec_info->LDPC_dat,  "AB_x6_13.dat");
+         codec_info->BCH.m = 12;
+         codec_info->BCH.t = 12;
          break;
-      case 64800:
-         code_id = 200 + codec_info->code_index;
+      case AB_x4_1_3:
+         codec_info->n = 1890;
+         codec_info->repeat = 42;
+         break;
+      case AB_x3_1_3:
+         codec_info->n = 2520;
+         codec_info->repeat = 42;
+         break;
+      case AB_x2_1_3:
+         codec_info->n = 3780;
+         codec_info->repeat = 42;
+         break;
+      case AB_x1_1_5:
+         codec_info->n = 7560;
+         codec_info->repeat = 84;
+         break;
+      case AB_x1_4_15:
+         codec_info->n = 7560;
+         codec_info->repeat = 84;
+         break;
+      case AB_x1_1_3:
+         codec_info->n = 7560;
+         codec_info->repeat = 168;
+         break;
+      case AB_SF_1_4 ... AB_SF_3_4:
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
+         break;
+      case AB_MF_2_5 ... AB_MF_4_5:
+         codec_info->n = 32400;
+         codec_info->repeat = 360;
+         break;
+      case AB_LF_7_10 ... AB_LF_9_10:
+         codec_info->n = 40500;
+         codec_info->repeat = 405;
          break;
       default:
-         printf("#E Selected block size:%d not supported\n", codec_info->n);
+         printf("#E Code Index not supported\n");
          return (true);
    }
-   printf("#E Selected block size is :%d\n", codec_info->n);
+   printf("#E Selected block size is :%d\n", codec_info->n);*/
 
-   switch(code_id)
+   switch(codec_info->code_index)
    {
       //16200 S2
-      case 100: //16200 1/4  chk deg.   3.75/4
+      case S2_SF_1_4: //16200 1/4  chk deg.   3.75/4
          codec_info->k = 3240;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 1440;
          codec_info->max_chk_degree = 4;
@@ -34,8 +75,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
-      case 101: //16200 1/3  chk deg.      5/5
+      case S2_SF_1_3: //16200 1/3  chk deg.      5/5
          codec_info->k = 5400;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 1800;
          codec_info->max_chk_degree = 5;
@@ -43,8 +86,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
-      case 102: //16200 2/5  chk deg.      6/6
+      case S2_SF_2_5: //16200 2/5  chk deg.      6/6
          codec_info->k = 6480;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 2160;
          codec_info->max_chk_degree = 6;
@@ -52,8 +97,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
-      case 103: //16200 1/2  chk deg.    5.4/7
+      case S2_SF_1_2: //16200 1/2  chk deg.    5.4/7
          codec_info->k = 7200;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 8;
          codec_info->elite_end = 1800;
          codec_info->max_chk_degree = 7;
@@ -61,8 +108,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
-      case 104: //16200 3/5  chk deg.     11/11
+      case S2_SF_3_5: //16200 3/5  chk deg.     11/11
          codec_info->k = 9720;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 3240;
          codec_info->max_chk_degree = 11;
@@ -70,8 +119,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
-      case 105: //16200 2/3  chk deg.     10/10
+      case S2_SF_2_3: //16200 2/3  chk deg.     10/10
          codec_info->k = 10800;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 13;
          codec_info->elite_end = 1080;
          codec_info->max_chk_degree = 10;
@@ -79,8 +130,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
-      case 106: //16200 3/4  chk deg.     11/13
+      case S2_SF_3_4: //16200 3/4  chk deg.     11/13
          codec_info->k = 11880;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 360;
          codec_info->max_chk_degree = 13;
@@ -88,8 +141,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
-      case 107: //16200 4/5  chk deg.   12.5/13
+      case S2_SF_4_5: //16200 4/5  chk deg.   12.5/13
          codec_info->k = 12600;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 3;
          codec_info->elite_end = 360;
          codec_info->max_chk_degree = 13;
@@ -97,8 +152,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
-      case 108: //16200 5/6  chk deg. 17.125/19
+      case S2_SF_5_6: //16200 5/6  chk deg. 17.125/19
          codec_info->k = 13320;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 13;
          codec_info->elite_end = 360;
          codec_info->max_chk_degree = 19;
@@ -106,8 +163,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 14;
          codec_info->BCH.t = 12;
          break;
-      case 109: //16200 8/9  chk deg.     27/27
+      case S2_SF_8_9: //16200 8/9  chk deg.     27/27
          codec_info->k = 14400;
+         codec_info->n = 16200;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 4;
          codec_info->elite_end = 1800;
          codec_info->max_chk_degree = 27;
@@ -117,8 +176,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          break;
 
       //64800  S2
-      case 200: //64800 1/4  chk deg.      4/4
+      case S2_NF_1_4: //64800 1/4  chk deg.      4/4
          codec_info->k = 16200;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 5400;
          codec_info->max_chk_degree = 4;
@@ -126,8 +187,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
-      case 201: //64800 1/3  chk deg.      5/5
+      case S2_NF_1_3: //64800 1/3  chk deg.      5/5
          codec_info->k = 21600;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 7200;
          codec_info->max_chk_degree = 5;
@@ -135,8 +198,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
-      case 202: //64800 2/5  chk deg.      6/6
+      case S2_NF_2_5: //64800 2/5  chk deg.      6/6
          codec_info->k = 25920;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 8640;
          codec_info->max_chk_degree = 6;
@@ -144,8 +209,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
-      case 203: //64800 1/2  chk deg.      7/7
+      case S2_NF_1_2: //64800 1/2  chk deg.      7/7
          codec_info->k = 32400;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 8;
          codec_info->elite_end = 12960;
          codec_info->max_chk_degree = 7;
@@ -153,8 +220,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
-      case 204: //64800 3/5  chk deg.     11/11
+      case S2_NF_3_5: //64800 3/5  chk deg.     11/11
          codec_info->k = 38880;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 12960;
          codec_info->max_chk_degree = 11;
@@ -162,8 +231,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
-      case 205: //64800 2/3  chk deg.     10/10
+      case S2_NF_2_3: //64800 2/3  chk deg.     10/10
          codec_info->k = 43200;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 13;
          codec_info->elite_end = 4320;
          codec_info->max_chk_degree = 10;
@@ -171,8 +242,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 10;
          break;
-      case 206: //64800 3/4  chk deg.     14/14
+      case S2_NF_3_4: //64800 3/4  chk deg.     14/14
          codec_info->k = 48600;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 12;
          codec_info->elite_end = 5400;
          codec_info->max_chk_degree = 14;
@@ -180,8 +253,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
-      case 207: //64800 4/5  chk deg.     18/18
+      case S2_NF_4_5: //64800 4/5  chk deg.     18/18
          codec_info->k = 51840;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 11;
          codec_info->elite_end = 6480;
          codec_info->max_chk_degree = 18;
@@ -189,8 +264,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 12;
          break;
-      case 208: //64800 5/6  chk deg.     22/22
+      case S2_NF_5_6: //64800 5/6  chk deg.     22/22
          codec_info->k = 54000;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 13;
          codec_info->elite_end = 5400;
          codec_info->max_chk_degree = 22;
@@ -198,8 +275,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 10;
          break;
-      case 209: //64800 8/9  chk deg.     27/27
+      case S2_NF_8_9: //64800 8/9  chk deg.     27/27
          codec_info->k = 57600;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 4;
          codec_info->elite_end = 7200;
          codec_info->max_chk_degree = 27;
@@ -207,8 +286,10 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          codec_info->BCH.m = 16;
          codec_info->BCH.t = 8;
          break;
-      case 210: //64800 9/10 chk deg.     30/30
+      case S2_NF_9_10: //64800 9/10 chk deg.     30/30
          codec_info->k = 58320;
+         codec_info->n = 64800;
+         codec_info->repeat = 360;
          codec_info->elite_degree = 4;
          codec_info->elite_end = 6480;
          codec_info->max_chk_degree = 30;
@@ -218,8 +299,7 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
          break;
 
       default:
-         printf("#E The code option:%d is not supported! n:%d code_index:%d\n",
-                  code_id, codec_info->n, codec_info->code_index);
+         printf("#E The code option is not supported!\n");
          return (true);
    }
 
@@ -231,7 +311,7 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
             "%s dat file name\n"
             "%d BCH m\n"
             "%d BCH t\n",
-            code_id,
+            codec_info->code_index,
             codec_info->n,
             codec_info->code_index,
             codec_info->k,
@@ -280,7 +360,9 @@ bool code_spec(Codec_Specification *codec_info, BIT_NODES *bit_n, CHECK_NODES *c
    return(false);
 }
 
-bool ldpc_construct (Codec_Specification &codec_info, BIT_NODES *bit_n, CHECK_NODES *check_n)
+bool ldpc_construct (Codec_Specification &codec_info,
+                     BIT_NODES *bit_n,
+                     CHECK_NODES *check_n)
 {
    int i, j, k, parity_node_index;
 
@@ -296,7 +378,8 @@ bool ldpc_construct (Codec_Specification &codec_info, BIT_NODES *bit_n, CHECK_NO
    // 64800 - 16200 = 48600  48600 / 360 = 135
    int q = codec_info.number_of_parity_bits / codec_info.repeat;
    // 12 * (5400 / 360) = 12 * 15 = 180
-   int elite_seed = codec_info.elite_degree * (codec_info.elite_end / codec_info.repeat);
+   int elite_seed = codec_info.elite_degree *
+            (codec_info.elite_end / codec_info.repeat);
    //degree of first set of parity seeds, example here is 12 (i.e. number of seeds in a row of table B)
    int deg = codec_info.elite_degree;
    //degree of second set of parity seeds (i.e. number of seeds in a row of table B). It is constant in DVBS2
@@ -304,7 +387,8 @@ bool ldpc_construct (Codec_Specification &codec_info, BIT_NODES *bit_n, CHECK_NO
    // 112 * 15 = 180 => 180 + (3 * (16200 - 5400) / 360)) = (12 * 15) + (3 * (16200 - 5400) / 360)
    // this is nodes (number of columns) * rows per each section of the code
    // 15 * 360 = 5400 so the 30 remaining that are 3 wide take up the rest
-   int add_lut_size = elite_seed + deg2 * (codec_info.k - codec_info.elite_end) / codec_info.repeat; // 270
+   int add_lut_size = elite_seed + deg2 *
+            (codec_info.k - codec_info.elite_end) / codec_info.repeat; // 270
 
 
    //Read in the add_seed table
@@ -373,17 +457,44 @@ bool ldpc_construct (Codec_Specification &codec_info, BIT_NODES *bit_n, CHECK_NO
    for (i = 0; i < (codec_info.number_of_parity_bits - 1); i++)
    {
       parity_node_index = i + 1;
-      check_n[parity_node_index].btc[check_n[parity_node_index].degree].index = bit_count;
-      check_n[parity_node_index].degree = check_n[parity_node_index].degree + 1;
+      check_n[parity_node_index].
+         btc[check_n[parity_node_index].degree].index = bit_count;
+      check_n[parity_node_index].degree =
+               check_n[parity_node_index].degree + 1;
       bit_count++;
    }
+
+
+   //This is just added so that you can easily figure out what value to put in
+   //codec_info->max_chk_degree when running a new code
+   //Note that the ++ on max_connections from what it actually is
+   //comes from it's legacy implementation where the degree's were all 1 larger
+   //than they are now because I pulled the self parity bit out of the check_n
+   //table as it was pointless to have in there for the encoder BUT
+   //It makes a difference for the decoder as it is technically part of the
+   //calculation i think so make sure to keep the values as they are for now
+   //until you investigate and learn otherwise
+
+   //You can just comment this out if you are not using it
+   int max_connections = 0;
+   for(j = 0; j < codec_info.number_of_parity_bits; j++)
+   {
+      if(max_connections < check_n[j].degree)
+      {
+         max_connections = check_n[j].degree;
+      }
+   }
+   max_connections++;
+   printf("max connections is %d\n", max_connections);
 }
 
 bool allocate_LDPC_encoder_memory(BIT_NODES **bit_n, CHECK_NODES **check_n)
 {
       if(
-         ((*bit_n = (BIT_NODES *) calloc(MAX_BLOCK_SIZE, sizeof(BIT_NODES))) == NULL) ||
-         ((*check_n = (CHECK_NODES *) calloc(MAX_CHECK_NODES, sizeof(CHECK_NODES))) == NULL)
+         ((*bit_n = (BIT_NODES *)
+                  calloc(MAX_BLOCK_SIZE, sizeof(BIT_NODES))) == NULL) ||
+         ((*check_n = (CHECK_NODES *)
+                  calloc(MAX_CHECK_NODES, sizeof(CHECK_NODES))) == NULL)
         )
       {
          printf("Insufficient memory available for encoder construction\n");
@@ -392,7 +503,9 @@ bool allocate_LDPC_encoder_memory(BIT_NODES **bit_n, CHECK_NODES **check_n)
       return(false);
 }
 
-void ldpc_encoder(Codec_Specification &codec_info, CHECK_NODES *check_n, DIGITAL *encoded_bits)
+void ldpc_encoder(Codec_Specification &codec_info,
+                  CHECK_NODES *check_n,
+                  DIGITAL *encoded_bits)
 {
 
    int i, j, pa;
