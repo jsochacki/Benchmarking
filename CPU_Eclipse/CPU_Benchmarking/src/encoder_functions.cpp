@@ -375,11 +375,6 @@ bool code_spec(Codec_Specification *codec_info,
          codec_info->repeat = 360;
          codec_info->elite_degree = 8;
          codec_info->elite_end = 1800;
-         //Need to recalculate this with new .dat file
-         /////////////
-         //////////
-         ///////
-         ////////////
          codec_info->max_chk_degree = 7;
          strcpy(codec_info->LDPC_dat,  "AB_SF_1_2.dat");
          codec_info->BCH.m = 14;
@@ -776,7 +771,26 @@ bool ldpc_construct (Codec_Specification &codec_info,
    return true;
 }
 
-bool allocate_LDPC_encoder_memory(BIT_NODES **bit_n, CHECK_NODES **check_n)
+///TODO Pick up here
+bool ldpc_encoder_optimize(Codec_Specification &codec_info,
+                           CHECK_NODES *check_n)
+{
+   unsigned int i, j, total_size;
+
+   total_size = 0;
+   for(j = 0; j < codec_info.number_of_parity_bits; j++)
+   {
+      for(i = 0; i < check_n[j].degree; i++)
+      {
+         check_n[j].btc[i].index;
+      }
+      total_size += check_n[j].degree;
+   }
+
+   return true;
+}
+
+bool allocate_ldpc_encoder_memory(BIT_NODES **bit_n, CHECK_NODES **check_n)
 {
       if(
          ((*bit_n = (BIT_NODES *)

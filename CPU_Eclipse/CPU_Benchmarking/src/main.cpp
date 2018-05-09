@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
    CHECK_NODES *check_n;
    codec_info.code_index = S2_NF_1_4;
 
-   if (!allocate_LDPC_encoder_memory(&bit_n, &check_n)) return false;
+   if (!allocate_ldpc_encoder_memory(&bit_n, &check_n)) return false;
    code_spec(&codec_info, bit_n, check_n);
 
    frame_size = codec_info.n;

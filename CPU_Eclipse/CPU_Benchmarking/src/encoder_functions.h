@@ -67,7 +67,9 @@ bool ldpc_construct (Codec_Specification &, BIT_NODES *, CHECK_NODES *);
 
 void bit_checks(int , int , int , unsigned short *, int &, BIT_NODES *);
 
-bool allocate_LDPC_encoder_memory(BIT_NODES **, CHECK_NODES **);
+bool ldpc_encoder_optimize(Codec_Specification &, CHECK_NODES *);
+
+bool allocate_ldpc_encoder_memory(BIT_NODES **, CHECK_NODES **);
 
 void ldpc_encoder(Codec_Specification &, CHECK_NODES *, DIGITAL *);
 
